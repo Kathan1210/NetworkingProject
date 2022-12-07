@@ -6,13 +6,13 @@ import re
 app = Flask(__name__)
 
 # Change this to your secret key (can be anything, it's for extra protection)
-app.secret_key = 'patel8l4'
+app.secret_key = 'vaidya8'
 
 # Enter your database connection details below
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
-app.config['MYSQL_DB'] = 'pythonlogin'
+app.config['MYSQL_PASSWORD'] = 'admin'
+app.config['MYSQL_DB'] = 'loginDb'
 
 # Intializing MySQL
 mysql = MySQL(app)
@@ -30,7 +30,8 @@ def login():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
         # cursor.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password,))
-        cursor.execute("SELECT * FROM accounts WHERE username = '%s' AND password = '%s'" % (username, password))
+        cursor.execute("SELECT * FROM Info WHERE name = '%s' AND password = '%s'" % (username, password))
+        print("SELECT * FROM Info WHERE name = '%s' AND password = '%s'" % (username, password))
 
         # Fetch one record and return result
         result = cursor.fetchone()
@@ -39,7 +40,7 @@ def login():
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
             session['id'] = result['id']
-            session['username'] = result['username']
+            session['username'] = result['name']
             # Redirect to home page
             return redirect(url_for('home'))
         else:
@@ -71,7 +72,7 @@ def register():
         email = request.form['email']
         # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE username = %s', (username,))
+        cursor.execute('SELECT * FROM Info WHERE name = %s', (username,))
         result = cursor.fetchone()
         # If account exists show error and validation checks
         if result:
@@ -84,7 +85,7 @@ def register():
             message = 'Please fill out the form!'
         else:
             # Account doesnt exists and the form data is valid, now insert new account into accounts table
-            cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s)', (username, password, email,))
+            cursor.execute('INSERT INTO Info VALUES (NULL, %s, %s, %s)', (username, password, email,))
             mysql.connection.commit()
             message = 'You have successfully registered!'
 
