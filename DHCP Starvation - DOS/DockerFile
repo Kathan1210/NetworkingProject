@@ -1,0 +1,7 @@
+FROM python:3
+
+ADD dhcp_starve.py /
+
+RUN pip install scapy
+
+CMD [ "python", "./dhcp_starve.py"]
